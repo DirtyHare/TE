@@ -10,16 +10,17 @@
   <div class="form-container">
     <h1>Обратная связь</h1>
     <form id="feedbackForm">
-      <label for="name">Имя </label>
+      <label for="name">Имя</label>
       <input type="text" id="name" name="name" placeholder="Ваше имя" />
 
-      <label for="email">Email * </label>
-      <input type="email" id="email" name="email" placeholder="Ваш email" />
+      <label for="email">Email <span id="emailStar">*</span></label>
+<input type="email" id="email" name="email" placeholder="Ваш email" required />
+
 
       <label>Категория обращения *</label>
       <div class="category-buttons">
         <button type="button" class="category-btn active" data-value="general">Вопрос</button>
-        <button type="button" class="category-btn" data-value="bug">Сообщение <br>об ошибке<br></button>
+        <button type="button" class="category-btn" data-value="bug">Сообщение об ошибке</button>
         <button type="button" class="category-btn" data-value="suggestion">Предложение</button>
       </div>
       <input type="hidden" id="category" name="category" value="general" />
@@ -39,18 +40,68 @@
     </form>
   </div>
 
-  <script>
-    // Логика выбора категории
-    const categoryButtons = document.querySelectorAll('.category-btn');
-    const categoryInput = document.getElementById('category');
+  <!-- Модальное окно -->
+  <div id="modal" class="modal hidden">
+    <div class="modal-content">
+      <p>Спасибо за ваше сообщение!</p>
+      <button id="closeModal" class="submit-btn">Закрыть</button>
+    </div>
+  </div>
 
-    categoryButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        categoryButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        categoryInput.value = button.dataset.value;
-      });
+  <script>
+    
+  const categoryButtons = document.querySelectorAll('.category-btn');
+  const categoryInput = document.getElementById('category');
+  const nameInput = document.getElementById('name');
+  const emailInput = document.getElementById('email');
+  const emailStar = document.getElementById('emailStar');
+  const form = document.getElementById('feedbackForm');
+  const modal = document.getElementById('modal');
+  const closeModal = document.getElementById('closeModal');
+
+  // Логика выбора категории
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      categoryButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      categoryInput.value = button.dataset.value;
+
+      if (button.dataset.value === 'general') {
+        nameInput.required = true;
+        emailInput.required = true;
+        emailStar.style.display = 'inline';
+      } else {
+        nameInput.required = false;
+        emailInput.required = false;
+        emailStar.style.display = 'none';
+      }
     });
+  });
+
+  // Отправка формы
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    // Здесь может быть отправка данных на сервер через fetch()
+
+    // Показываем модальное окно
+    modal.classList.remove('hidden');
+    form.reset();
+
+    // Сброс категории и обязательности
+    categoryButtons.forEach(btn => btn.classList.remove('active'));
+    categoryButtons[0].classList.add('active');
+    categoryInput.value = 'general';
+    nameInput.required = true;
+    emailInput.required = true;
+    emailStar.style.display = 'inline';
+  });
+
+  // Закрытие модального окна
+  closeModal.addEventListener('click', () => {
+    modal.classList.add('hidden');
+  });
+
+
   </script>
 </body>
 </html>
