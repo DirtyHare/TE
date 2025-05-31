@@ -10,26 +10,26 @@
   <div class="form-container">
     <h1>Обратная связь</h1>
     <form id="feedbackForm">
-      <label for="name">Имя (необязательно)</label>
+      <label for="name">Имя </label>
       <input type="text" id="name" name="name" placeholder="Ваше имя" />
 
-      <label for="email">Email (необязательно)</label>
+      <label for="email">Email * </label>
       <input type="email" id="email" name="email" placeholder="Ваш email" />
 
-      <label>Категория обращения</label>
+      <label>Категория обращения *</label>
       <div class="category-buttons">
-        <button type="button" class="category-btn active" data-value="general">Общий вопрос</button>
-        <button type="button" class="category-btn" data-value="bug">Сообщение об ошибке</button>
+        <button type="button" class="category-btn active" data-value="general">Вопрос</button>
+        <button type="button" class="category-btn" data-value="bug">Сообщение <br>об ошибке<br></button>
         <button type="button" class="category-btn" data-value="suggestion">Предложение</button>
       </div>
       <input type="hidden" id="category" name="category" value="general" />
 
-      <label for="message">Сообщение</label>
+      <label for="message">Сообщение *</label>
       <textarea id="message" name="message" placeholder="Ваше сообщение" required></textarea>
 
       <div class="checkbox">
         <input type="checkbox" id="consent" name="consent" required />
-        <label for="consent">Я согласен на обработку персональных данных</label>
+        <label for="consent">Даю согласие на обработку персональных данных</label>
       </div>
 
       <div class="form-buttons">
